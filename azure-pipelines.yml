@@ -15,6 +15,10 @@ steps:
     jdkVersionOption: '11'
     jdkArchitectureOption: 'x64'
     goals: 'package -Dmaven.test.failure.ignore=true'
-    publishJUnitResults: true
+  continueOnError: true
+
+- task: PublishTestResults@2
+  inputs:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    failTaskOnFailedTests: false
   continueOnError: true
