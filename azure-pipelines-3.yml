@@ -2,7 +2,9 @@ trigger:
   - master   # or your main branch name
 
 pool:
-  vmImage: 'ubuntu-latest'   # Microsoft-hosted agent with JDK and Maven pre-installed
+  name: Default
+  demands:
+    - maven
 
 steps:
   - task: Maven@3
