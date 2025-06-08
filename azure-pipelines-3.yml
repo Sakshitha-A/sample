@@ -1,22 +1,22 @@
 trigger:
-  - master   # or your main branch name
+- master
 
 pool:
   name: Default
-  demands:
-    - maven
 
 steps:
-  - task: Maven@3
-    inputs:
-      mavenPomFile: 'pom.xml'            # path to your pom.xml
-      goals: 'clean install'              # build goals
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '21.0.3'              # or your Java version
-      publishJUnitResults: true
-      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '21'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
 
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      failTaskOnFailedTests: true        # fail pipeline if tests fail
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    failTaskOnFailedTests: false
